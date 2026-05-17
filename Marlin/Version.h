@@ -41,7 +41,7 @@
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-//#define STRING_DISTRIBUTION_DATE "2026-01-22"
+#define STRING_DISTRIBUTION_DATE "2026-05-17"
 
 /**
  * The protocol for communication to the host. Protocol indicates communication
@@ -53,7 +53,7 @@
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-//#define MACHINE_NAME "3D Printer"
+#define MACHINE_NAME "Flying Bear Ghost 5"
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source

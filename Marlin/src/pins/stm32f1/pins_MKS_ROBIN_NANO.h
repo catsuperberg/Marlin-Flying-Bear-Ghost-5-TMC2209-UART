@@ -46,6 +46,92 @@
 
 #include "pins_MKS_ROBIN_NANO_common.h"
 
+/*
+Управление подсветкой платой в разъеме второго экструдера
+Управление ногой En
+https://easyeda.com/sst78rust/fb4s-led-control
+*/
+// #define CASE_LED_INSTEAD_E1
+
+/*
+BlTouch
+*/
+#define SERVO0_PIN                          PB2   
+#define BL_TOUCH_Z_PIN                      PC4
+
+//Дополнительный термистор на корпусе
+#if TEMP_SENSOR_CHAMBER > 0
+  #define TEMP_CHAMBER_PIN                  TEMP_1_PIN
+#endif
+
+/*
+Управление питанием
+https://sergey1560.github.io/fb4s_howto/mks_pwc/
+*/
+//#define MKS_PWC
+
+#ifdef MKS_PWC
+  #define SUICIDE_PIN                       PE5   
+  #define SUICIDE_PIN_INVERTING             false
+  #define PLR_PIN                           PA2   // PW_DET
+  #define KILL_PIN                          PA2   // Enable MKSPWC DET PIN
+  #define KILL_PIN_STATE                    true  // Enable MKSPWC PIN STATE
+#endif
+
+
+/*
+Модуль MKS WIFI
+*/
+#define MKS_WIFI
+
+#ifdef MKS_WIFI
+
+ #define MKS_WIFI_SERIAL_NUM                SERIAL_PORT_2
+ #define MKS_WIFI_UART                      USART1
+  #undef PLATFORM_M997_SUPPORT
+
+ #define MKS_WIFI_IO0                       PA8
+ #define MKS_WIFI_IO4                       PC7
+ #define MKS_WIFI_IO_RST                    PA5
+#endif
+
+
+#ifndef XPT2046_X_CALIBRATION
+  #define XPT2046_X_CALIBRATION          17880
+#endif
+#ifndef XPT2046_Y_CALIBRATION
+  #define XPT2046_Y_CALIBRATION         -12234
+#endif
+#ifndef XPT2046_X_OFFSET
+  #define XPT2046_X_OFFSET                 -45
+#endif
+#ifndef XPT2046_Y_OFFSET
+  #define XPT2046_Y_OFFSET                  349
+#endif
+
+#if HAS_TMC220x
+  /**
+   * TMC2208/TMC2209 stepper drivers
+   */
+  //
+  // Software serial
+  //
+  #define X_SERIAL_TX_PIN                   PA3
+  #define X_SERIAL_RX_PIN                   PA3
+
+  #define Y_SERIAL_TX_PIN                   PB2
+  #define Y_SERIAL_RX_PIN                   PB2
+
+  #define Z_SERIAL_TX_PIN                   PA6
+  #define Z_SERIAL_RX_PIN                   PA6
+
+  #define E0_SERIAL_TX_PIN                  PA1
+  #define E0_SERIAL_RX_PIN                  PA1
+
+  // Reduce baud rate to improve software serial reliability
+  #define TMC_BAUD_RATE 19200
+#endif
+
 #if HAS_TFT_LVGL_UI && FAN1_PIN != PB0 && HEATER_1_PIN != PB0
   #define BOARD_INIT() OUT_WRITE(PB0, LOW)
 #endif
